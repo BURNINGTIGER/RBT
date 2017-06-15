@@ -1,66 +1,29 @@
 #include <matrix.hpp>
 #include <catch.hpp>
-#include <iostream>
 
-using namespace std;
-
-SCENARIO("matrix init", "[init]") {
-	Matrix matrix;
-	REQUIRE(matrix.rows() == 0);
-	REQUIRE(matrix.columns() == 0);
-}
-
-SCENARIO("params init", "[init with params]") {
-	int init = 5;
-	Matrix matrix(init, init);
-	REQUIRE(matrix.rows() == 5);
-	REQUIRE(matrix.columns() == 5);
-}
-
-SCENARIO("copy", "[copy]")
+SCENARIO ("init", "[init]")
 {
-	int init = 2;
-	Matrix m1(init, init);
-	Matrix copy(m1);
-	REQUIRE(copy.rows() == 2);
-	REQUIRE(copy.columns() == 2);
+  RBT<int> test;
+  REQUIRE(test._root() == test._NIL());
 }
 
-SCENARIO("m+", "[m+]")
+SCENARIO("insert", "[insert]")
 {
-	Matrix A(2, 2);
-	Matrix B(2, 2);
-	Matrix C(2, 2);
-	std::ifstream ("f1.txt") >> A;
-	std::ifstream ("f2.txt") >> B;
-	std::ifstream ("f3.txt") >> C;
-	REQUIRE((A + B) == C);
+  RBT<int> test;
+  test.insert(1);
+  REQUIRE(test.search(1) != 0);
 }
 
-SCENARIO("m*", "[m*]")
+SCENARIO("insert1", "[insert1]")
 {
-	Matrix A (2, 2);
-	Matrix B (2, 2);
-	Matrix C (2, 2);
-	std::ifstream("f1.txt") >> A;
-	std::ifstream("f2.txt") >> B;
-	std::ifstream("f4.txt") >> C;
-	REQUIRE((A*B) == C);
-}
-
-SCENARIO("m=", "[m=]")
-{
-	Matrix A(2, 2);
-	Matrix B = A;
-	REQUIRE(B == A);
-}
-
-SCENARIO("read", "[read]")
-{
-	Matrix A(2, 2);
-	Matrix B (2, 2);
-	std::ifstream("f1.txt") >> A;
-	std::ofstream("f5.txt") << A;
-	std::ifstream("f5.txt") >> B;
-	REQUIRE(B == A);
+  RBT<int> tree;
+  tree.insert(1);
+  tree.insert(2);
+  tree.insert(3);
+  REQUIRE(tree._color(2) == 1);
+  REQUIRE(tree._color(1) == 0);
+  REQUIRE(tree._color(3) == 0);
+  REQUIRE(tree.search(1) != 0);
+  REQUIRE(tree.search(2) != 0);
+  REQUIRE(tree.search(3) != 0);
 }
